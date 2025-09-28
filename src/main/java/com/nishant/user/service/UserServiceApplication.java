@@ -1,4 +1,4 @@
-package com.nishant;
+package com.nishant.user.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

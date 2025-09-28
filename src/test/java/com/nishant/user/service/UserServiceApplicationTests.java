@@ -1,4 +1,4 @@
-package com.nishant;
+package com.nishant.user.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
