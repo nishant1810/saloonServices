@@ -4,6 +4,7 @@ import com.nishant.user.service.modal.User;
 import com.nishant.user.service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +35,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @PostMapping("/api/users")
-    public User createUser(@RequestBody User user){
+    public User createUser(@RequestBody @Valid User user){
         return userRepository.save(user);
     }
     @GetMapping("/api/users")
