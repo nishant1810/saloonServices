@@ -1,80 +1,54 @@
 package com.nishant.user.service.controller;
 
-import com.nishant.user.service.exception.UserException;
 import com.nishant.user.service.modal.User;
-import com.nishant.user.service.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import com.nishant.user.service.service.UserService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
-//@RestController
-//public class UserController {
-//    @Autowired
-//    private UserRepository userRepository;
-//
-//    @PostMapping("/api/users")
-//    public User createUser(User user){
-//        return userRepository.save(user);
-//    }
-//    @GetMapping("/api/users")
-//    public User getUser() {
-//        User user = new User();
-//        user.setEmail("nishant@gmail.com");
-//        user.setFullName("Nishant Gaur");
-//        user.setPhone("+91 9098765678");
-//        user.setRole("Customer");
-//        return user;
-//    }
-//}
 @RestController
+@RequiredArgsConstructor
+
+//@RequestMapping("/api/users")
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserService userService;
 
-    @PostMapping("/api/users")
-    public User createUser(@RequestBody @Valid User user){
-        return userRepository.save(user);
-    }
-    @GetMapping("/api/users")
-    public List<User> getUsers(){
-        return userRepository.findAll();
-    }
-    @GetMapping("api/users/{id}")
-    public User getUserById(@PathVariable Long id) throws Exception {
-        Optional<User>otp=userRepository.findById(id);
-        if(otp.isPresent()){
-            return otp.get();
-        }
-        throw new UserException("user not found");
+//    public UserController(UserService userService) {
+//        this.userService = userService;
+//    }
+
+    @PostMapping
+    public ResponseEntity<User> createUser(@RequestBody @Valid User user) {
+        User createdUser = userService.createUser(user);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
-    @PutMapping("/api/users/{id}")
-    public User updateUser(@RequestBody User user, @PathVariable Long id) throws Exception {
-        Optional<User>otp=userRepository.findById(id);
-        if(otp.isEmpty()){
-            throw new UserException("user not found with id"+id);
-        }
-        User existingUser=otp.get();
-        existingUser.setFullName(user.getFullName());
-        existingUser.setEmail(user.getEmail());
-        existingUser.setPhone(user.getPhone());
-        existingUser.setRole(user.getRole());
-
-        return userRepository.save(existingUser);
+    @GetMapping
+    public ResponseEntity<List<User>> getUsers() {
+        List<User> users = userService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) throws Exception {
+        User user = userService.getUserById(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 
-    @DeleteMapping("api/users/{id}")
-    public String deleteUserById(@PathVariable Long id) throws Exception {
-        Optional<User>otp=userRepository.findById(id);
-        if(otp.isEmpty()){
-            throw new UserException("user not found with id"+id);
-        }
-        userRepository.deleteById(otp.get().getId());
-        return "User deleted successfully";
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@RequestBody @Valid User user, @PathVariable Long id) throws Exception {
+        User updatedUser = userService.updateUser(id, user);
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUserById(@PathVariable Long id) throws Exception {
+        userService.deleteUser(id);
+        return new ResponseEntity<>("User deleted", HttpStatus.ACCEPTED); // ✅ fixed
     }
 }
