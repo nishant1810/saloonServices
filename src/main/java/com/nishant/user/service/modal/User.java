@@ -5,7 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -24,7 +29,7 @@ public class User {
 
     private String fullName;
 
-    @NotBlock(message = "username is mandatory")
+    @NotBlank(message = "username is mandatory")
     private String username;
 
     @NotBlank(message = "email is mandatory")
@@ -33,7 +38,7 @@ public class User {
 
     private String phone;
 
-    @NotBlock(message = "username is mandatory")
+    @NotBlank(message = "username is mandatory")
     private String role;
 
     @CreationTimestamp
@@ -45,9 +50,9 @@ public class User {
     @NotBlank(message = "email is mandatory")
     private String password;
 
-    // ✅ Default constructor (required by JPA)
-    public User() {
-    }
+//    // ✅ Default constructor (required by JPA)
+//    public User() {
+//    }
 
     // ✅ Parameterized constructor
     public User(String fullName,

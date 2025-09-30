@@ -3,18 +3,21 @@ package com.nishant.user.service.exception;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import com.nishant.user.service.Payload_response.ExceptionResponse;
+import com.nishant.user.service.payload.response.ExceptionResponse;
 import org.springframework.web.context.request.WebRequest;
+
+import java.time.LocalDateTime;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExcepectionHandler(Exception.class)
-    public ResponseEntity<ExceptionHandler> ExceptionHandler(Exception ex, WebRequest req){
-        ExceptionResponse response=new ExceptionResponse(){
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ExceptionResponse> ExceptionHandler(Exception ex, WebRequest req){
+        ExceptionResponse response=new ExceptionResponse(
             ex.getMessage(),
-            req.getDescription(includeClientInfo:false), LocalDateTime.now()
-        };
+            req.getDescription(false),
+                LocalDateTime.now()
+        );
         return ResponseEntity.ok(response);
     }
 }

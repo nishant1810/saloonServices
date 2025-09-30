@@ -1,5 +1,6 @@
 package com.nishant.user.service.controller;
 
+import com.nishant.user.service.exception.UserException;
 import com.nishant.user.service.modal.User;
 import com.nishant.user.service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
