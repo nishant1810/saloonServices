@@ -1,5 +1,6 @@
 package com.nishant.user.service.modal;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,6 +12,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -19,16 +24,16 @@ public class User {
 
     private String fullName;
 
-    @NotBlock(message="username is mandatory")
+    @NotBlock(message = "username is mandatory")
     private String username;
 
-    @NotBlank(message="email is mandatory")
-    @Email(message="email should be valid")
+    @NotBlank(message = "email is mandatory")
+    @Email(message = "email should be valid")
     private String email;
 
     private String phone;
 
-    @NotBlock(message="username is mandatory")
+    @NotBlock(message = "username is mandatory")
     private String role;
 
     @CreationTimestamp
@@ -37,7 +42,7 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @NotBlank(message="email is mandatory")
+    @NotBlank(message = "email is mandatory")
     private String password;
 
     // ✅ Default constructor (required by JPA)
@@ -66,61 +71,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    // ✅ Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }
+
+
