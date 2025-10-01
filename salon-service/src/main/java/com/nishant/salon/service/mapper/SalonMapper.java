@@ -6,7 +6,7 @@ import com.nishant.salon.service.payload.DTO.SalonDTO;
 
 public class SalonMapper {
 
-    public static SalonDTO salonToSalonDTO(Salon salon) {
+    public static SalonDTO mapToDTO(Salon salon) {
         SalonDTO salonDTO = new SalonDTO();
 
         salonDTO.setId(salon.getId());
