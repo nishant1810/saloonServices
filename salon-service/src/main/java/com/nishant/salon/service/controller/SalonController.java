@@ -50,9 +50,9 @@ public class SalonController {
         return ResponseEntity.ok(salonDTOS);
     }
 
-    @GetMapping("/{salonId}")
-    public ResponseEntity<SalonDTO> getSalonById(@PathVariable Long salonId) {
-        Salon salon = salonService.getSalonById(salonId);
+    @GetMapping("/{Id}")
+    public ResponseEntity<SalonDTO> getSalon(@PathVariable Long id)throws Exception {
+        Salon salon = salonService.getSalonById(id);
         SalonDTO salonDTO = SalonMapper.mapToDTO(salon);
         return ResponseEntity.ok(salonDTO);
     }
