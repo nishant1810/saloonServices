@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 package com.nishant.salon.service.repository;
 
 import com.nishant.salon.service.modal.Salon;
@@ -40,6 +41,29 @@ public interface SalonRepository extends JpaRepository<Salon, Long> {
             "LOWER(s.city) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "LOWER(s.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "LOWER(s.address) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    List<Salon> searchSalons(@Param("keyword") String keyword);
+}
+>>>>>>> Stashed changes
+=======
+package com.nishant.salon.service.repository;
+
+import com.nishant.salon.service.modal.Salon;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+
+public interface SalonRepository extends JpaRepository<Salon, Long> {
+
+    Salon findByOwnerId(long id);
+
+    @Query(
+            "select s from Salon s where " +
+                    "lower(s.city) like lower(concat('%', :keyword, '%')) or " +
+                    "lower(s.name) like lower(concat('%', :keyword, '%')) or " +
+                    "lower(s.address) like lower(concat('%', :keyword, '%'))"
+    )
     List<Salon> searchSalons(@Param("keyword") String keyword);
 }
 >>>>>>> Stashed changes
